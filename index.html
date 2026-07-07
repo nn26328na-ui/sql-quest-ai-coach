@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SQL Quest AI Coach</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div>
+            <h1>SQL Quest AI Coach</h1>
+            <p>高级 SQL 面试闯关 · ADHD 友好 · 可部署 GitHub Pages</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="exportEvidenceBtn" class="ghost-btn" type="button">导出证据</button>
+          <button id="resetBtn" class="ghost-btn danger" type="button">重置进度</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="quest-panel">
+          <div class="meter">
+            <div>
+              <span class="eyebrow">Focus Run</span>
+              <strong id="progressLabel">0 / 32</strong>
+            </div>
+            <div class="meter-bar"><span id="progressBar"></span></div>
+          </div>
+
+          <div class="stats-grid">
+            <div><span>XP</span><strong id="xpStat">0</strong></div>
+            <div><span>连胜</span><strong id="streakStat">0</strong></div>
+            <div><span>失败样本</span><strong id="badcaseStat">0</strong></div>
+          </div>
+
+          <label class="field-label" for="chapterFilter">训练章节</label>
+          <select id="chapterFilter"></select>
+
+          <div id="challengeList" class="challenge-list" aria-label="关卡列表"></div>
+        </aside>
+
+        <section class="main-panel">
+          <div class="task-header">
+            <div>
+              <span id="chapterBadge" class="badge">Loading</span>
+              <h2 id="challengeTitle">正在加载题库</h2>
+            </div>
+            <div id="difficultyPips" class="pips" aria-label="难度"></div>
+          </div>
+
+          <p id="promptText" class="prompt">请稍等，浏览器正在初始化 SQLite。</p>
+
+          <div class="micro-goal">
+            <div class="micro-line"></div>
+            <div>
+              <span>当前微目标</span>
+              <strong id="microGoal">先判断结果粒度，再写 SQL。</strong>
+            </div>
+          </div>
+
+          <div class="schema-strip">
+            <button id="schemaBtn" type="button">查看表结构</button>
+            <button id="hintBtn" type="button">提示 1</button>
+            <button id="answerBtn" type="button">参考答案</button>
+            <button id="interviewBtn" type="button">面试追问</button>
+          </div>
+
+          <textarea id="sqlEditor" spellcheck="false" placeholder="SELECT ..."></textarea>
+
+          <div class="run-row">
+            <button id="runBtn" class="primary-btn" type="button">运行并判题</button>
+            <button id="nextBtn" class="ghost-btn" type="button">下一关</button>
+            <span id="runtimeState">SQL.js 初始化中</span>
+          </div>
+
+          <pre id="resultBox" class="result-box" aria-live="polite"></pre>
+        </section>
+
+        <aside class="coach-panel">
+          <section class="coach-section">
+            <div class="section-title">
+              <span class="eyebrow">AI Coach</span>
+              <button id="coachConfigBtn" class="tiny-btn" type="button">设置</button>
+            </div>
+            <div id="coachConfig" class="coach-config">
+              <label>Endpoint
+              <input id="apiEndpoint" value="https://api.deepseek.com/chat/completions" />
+              </label>
+              <label>Model
+              <input id="apiModel" value="deepseek-v4-flash" />
+              </label>
+              <label>API Key
+                <input id="apiKey" type="password" placeholder="只保存在本机浏览器" />
+              </label>
+              <button id="saveConfigBtn" class="ghost-btn" type="button">保存设置</button>
+            </div>
+            <div class="coach-actions">
+              <button id="aiHintBtn" type="button">AI 不剧透提示</button>
+              <button id="aiReviewBtn" type="button">AI 复盘错误</button>
+            </div>
+            <div id="coachOutput" class="coach-output">
+              先跑一题。失败时我会判断你卡在语法、粒度、JOIN 放大、窗口排序，还是业务口径。
+            </div>
+          </section>
+
+          <section class="coach-section">
+            <span class="eyebrow">Project Evidence</span>
+            <h3>AI 产品证据链</h3>
+            <p class="small-copy">这不是炫功能，而是留下可面试的 trace：样本、评分、badcase、迭代动作。</p>
+            <div class="rubric">
+              <div><span>结果正确性</span><strong id="scoreCorrectness">-</strong></div>
+              <div><span>粒度控制</span><strong id="scoreGrain">-</strong></div>
+              <div><span>面试解释</span><strong id="scoreDefense">-</strong></div>
+            </div>
+          </section>
+
+          <section class="coach-section">
+            <span class="eyebrow">Badcase Lab</span>
+            <div id="badcaseList" class="badcase-list">还没有失败样本。失败不是惩罚，是你的训练数据。</div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./src/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,509 @@
+:root {
+  --ink: #172033;
+  --muted: #64748b;
+  --line: #d7dee8;
+  --paper: #ffffff;
+  --wash: #f5f7fb;
+  --blue: #2563eb;
+  --teal: #0f766e;
+  --amber: #b45309;
+  --rose: #be123c;
+  --violet: #6d28d9;
+  --shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.10), transparent 34%),
+    linear-gradient(45deg, rgba(15, 118, 110, 0.12), transparent 38%),
+    var(--wash);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+select,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+.app-shell {
+  width: min(1460px, calc(100vw - 28px));
+  margin: 0 auto;
+  padding: 18px 0 26px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.brand p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #111827;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 8px;
+  box-shadow: var(--shadow);
+}
+
+.brand-mark span {
+  border-radius: 4px;
+  background: #93c5fd;
+}
+
+.brand-mark span:nth-child(2) {
+  background: #5eead4;
+}
+
+.brand-mark span:nth-child(3) {
+  background: #fbbf24;
+}
+
+.top-actions,
+.run-row,
+.schema-strip,
+.coach-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) 340px;
+  gap: 16px;
+  align-items: start;
+}
+
+.quest-panel,
+.main-panel,
+.coach-panel {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.quest-panel,
+.coach-panel {
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.main-panel {
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.meter {
+  padding: 14px;
+  border-radius: 14px;
+  background: #111827;
+  color: #f8fafc;
+}
+
+.meter strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 26px;
+}
+
+.meter-bar {
+  height: 10px;
+  margin-top: 12px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.meter-bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #5eead4, #fbbf24);
+  transition: width 220ms ease;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.stats-grid div,
+.rubric div {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+}
+
+.stats-grid span,
+.rubric span,
+.eyebrow {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stats-grid strong,
+.rubric strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 20px;
+}
+
+.field-label {
+  display: block;
+  margin: 12px 0 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+select,
+input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 11px;
+  color: var(--ink);
+  background: #fff;
+}
+
+.challenge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: calc(100vh - 275px);
+  margin-top: 12px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.challenge-item {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+}
+
+.challenge-item.active {
+  border-color: var(--blue);
+  box-shadow: inset 4px 0 0 var(--blue);
+}
+
+.challenge-item.done {
+  border-color: rgba(15, 118, 110, 0.35);
+}
+
+.challenge-item small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.10);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+h2 {
+  margin: 10px 0 0;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+h3 {
+  margin: 6px 0 8px;
+  font-size: 18px;
+}
+
+.pips {
+  display: flex;
+  gap: 5px;
+  padding-top: 7px;
+}
+
+.pip {
+  width: 12px;
+  height: 32px;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.pip.on {
+  background: linear-gradient(180deg, var(--amber), var(--rose));
+}
+
+.prompt {
+  margin: 18px 0;
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.micro-goal {
+  display: grid;
+  grid-template-columns: 6px 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin: 0 0 16px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.micro-line {
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--teal), var(--blue));
+}
+
+.micro-goal span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.micro-goal strong {
+  display: block;
+  margin-top: 4px;
+}
+
+.schema-strip button,
+.coach-actions button,
+.ghost-btn,
+.tiny-btn {
+  min-height: 38px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.tiny-btn {
+  min-height: 30px;
+  padding: 5px 9px;
+  font-size: 12px;
+}
+
+.danger {
+  color: var(--rose);
+}
+
+.primary-btn {
+  min-height: 46px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  font-weight: 900;
+}
+
+#runtimeState {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#sqlEditor {
+  display: block;
+  width: 100%;
+  min-height: 260px;
+  margin: 14px 0;
+  padding: 14px;
+  resize: vertical;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  color: #dbeafe;
+  background: #0f172a;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.result-box,
+.coach-output,
+.badcase-list {
+  white-space: pre-wrap;
+  line-height: 1.55;
+}
+
+.result-box {
+  min-height: 140px;
+  margin: 14px 0 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #ffffff;
+  overflow: auto;
+}
+
+.result-box.pass {
+  border-color: rgba(15, 118, 110, 0.45);
+}
+
+.result-box.fail {
+  border-color: rgba(190, 18, 60, 0.38);
+}
+
+.coach-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.coach-section {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.coach-config {
+  display: none;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.coach-config.open {
+  display: grid;
+}
+
+.coach-config label {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.coach-output {
+  min-height: 150px;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+}
+
+.small-copy {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.rubric {
+  display: grid;
+  gap: 8px;
+}
+
+.badcase-list {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 1120px) {
+  .workspace {
+    grid-template-columns: 260px 1fr;
+  }
+
+  .coach-panel {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    width: min(100vw - 16px, 720px);
+    padding-top: 10px;
+  }
+
+  .topbar,
+  .task-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .challenge-list {
+    max-height: 260px;
+  }
+
+  h2 {
+    font-size: 25px;
+  }
+}
